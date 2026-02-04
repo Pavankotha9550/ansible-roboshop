@@ -73,10 +73,10 @@
 
     - name: loading the data into mongodb
       ansible.builtin.shell: mongosh --host mongodb.daws84.cyou </app/db/master-data.js
-      register: catalogue_data_output after loading
+      register: catalogue_data_output_after_loading
       when: catalogue_data_output.stdout | int < 0
       
     
     - name: print registar output after loading
       ansible.builtin.debug:
-        msg: "{{catalogue_data_output after loading}}"
+        msg: "{{catalogue_data_output_after_loading}}"
