@@ -38,7 +38,7 @@
 
     - name: install dependendied in nodejs
       community.general.npm:
-        path: "{{/app}}"
+        path: "{{/app/}}"
         state: present
 
     
