@@ -3,7 +3,7 @@
   become: yes
   tasks:
     - name: disabling node Joseph
-      ansible.builtin.command: dnf module disable nodejs -yaml
+      ansible.builtin.command: dnf module disable nodejs -y
 
     - name: enable node Joseph
       ansible.builtin.command: dnf module enable nodejs:20 -y
