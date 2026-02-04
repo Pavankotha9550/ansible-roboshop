@@ -34,4 +34,11 @@
       ansible.builtin.unarchive:
         src: /tmp/catalogue.zip
         dest: /app/
-        remote_src: yes
+        remote_src: yes #remote src option is must because it will thnk that zip file was in ansible server
+
+    - name: install dependendied in nodejs
+      community.general.npm:
+        path: "{{/app}}"
+        state: present
+
+    
