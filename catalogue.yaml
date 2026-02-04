@@ -53,6 +53,11 @@
         state: started
         enabled: yes
 
+    - name: copying the mongo repo
+      ansible.builtin.copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
+
     - name: installing mongodb
       ansible.builtin.package:
         name: mongodb-mongosh
