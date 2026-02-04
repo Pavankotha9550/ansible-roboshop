@@ -64,9 +64,17 @@
         state: present
 
     - name: checking products loaded o rnot
-      ansible.builtin.command: mongosh --host mongodb.daws84s.site --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
+      ansible.builtin.command: mongosh --host mongodb.daws84s.cyou --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
       register: catalogue_data_output
+
+    - name: print registar output before loading
+      ansible.builtin.debug:
+        msg: "{{catalogue_data_output}}"
 
     - name: loading the data into mongodb
       ansible.builtin.shell: mongosh --host mongodb.daws84.cyou </app/db/master-data.js
       when: catalogue_data_output.stdout | int < 0
+
+    - name: print registar output after loading
+      ansible.builtin.debug:
+        msg: "{{catalogue_data_output}}"
