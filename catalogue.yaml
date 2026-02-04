@@ -64,7 +64,7 @@
         state: present
 
     - name: checking products loaded o rnot
-      ansible.builtin.command: mongosh --host mongodb.daws84s.cyou --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
+      ansible.builtin.command: mongosh --host mongodb.daws84.cyou --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
       register: catalogue_data_output
 
     - name: print registar output before loading
