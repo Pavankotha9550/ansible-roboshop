@@ -53,7 +53,7 @@
         state: started
         enabled: yes
 
-    - name: copying the mongo repo
+    - name: copying the mongo repo #without this mongo client won't work
       ansible.builtin.copy:
         src: mongo.repo
         dest: /etc/yum.repos.d/mongo.repo
@@ -63,6 +63,10 @@
         name: mongodb-mongosh
         state: present
 
+    - name: checking products loaded o rnot
+      ansible.builtin.command: mongosh --host mongodb.daws84s.site --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
+      register: catalogue_data_output
+
     - name: loading the data into mongodb
       ansible.builtin.shell: mongosh --host mongodb.daws84.cyou </app/db/master-data.js
-    
+      when: catalogue_data_output.stdout | int < 0
