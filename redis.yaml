@@ -1,5 +1,5 @@
 - name: instaling reddis 
-  host: reddis
+  hosts: redis
   become: yes
   tasks:
     - name: disabling redis default module
