@@ -11,5 +11,5 @@
     - name: installing redis
       ansible.builtin.package:
         name: redis 
-        state: started
+        state: installed
       
