@@ -1,0 +1,15 @@
+- name: instaling reddis 
+  host: reddis
+  become: yes
+  tasks:
+    - name: disabling redis default module
+      ansible.builtin.command: dnf module disable redis -y
+
+    - name: enabiling redis
+      ansible.builtin.command: dnf module enable redis:7 -y
+
+    - name: installing redis
+      ansible.builtin.package:
+        name: redis 
+        state: started
+      
