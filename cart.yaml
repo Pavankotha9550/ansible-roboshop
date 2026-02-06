@@ -1,5 +1,5 @@
-- name: configuring user server
-  hosts: user
+- name: configuring cart server
+  hosts: cart
   become: yes
   tasks:
     - name: disabling node Joseph
@@ -13,8 +13,8 @@
         name: nodejs
         state: present
     
-    - name: create roboshop system user
-      ansible.builtin.user:
+    - name: create roboshop system cart
+      ansible.builtin.cart:
         name: roboshop
         shell: /sbin/nologin
         system: true
@@ -25,14 +25,14 @@
         path: /app
         state: directory
 
-    - name: downloade the user code 
+    - name: downloade the cart code 
       ansible.builtin.get_url:
-        url: https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip
-        dest: /tmp/user.zip
+        url: https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip
+        dest: /tmp/cart.zip
 
-    - name: extract user code
+    - name: extract cart code
       ansible.builtin.unarchive:
-        src: /tmp/user.zip
+        src: /tmp/cart.zip
         dest: /app/
         remote_src: yes #remote src option is must because it will thnk that zip file was in ansible server
 
@@ -41,14 +41,14 @@
         path: /app/
         state: present
 
-    - name: copying the user service file
+    - name: copying the cart service file
       ansible.builtin.copy:
-        src: user.service
-        dest: /etc/systemd/system/user.service
+        src: cart.service
+        dest: /etc/systemd/system/cart.service
 
-    - name: daemon reload in user and start
+    - name: daemon reload in cart and start
       ansible.builtin.systemd:
-        name: user.service
+        name: cart.service
         daemon_reload: yes
         state: started
         enabled: yes

@@ -1,0 +1,14 @@
+[Unit]
+Description = cart Service
+[Service]
+cart=roboshop
+Environment=MONGO=true
+// highlight-start
+Environment=REDIS_URL='redis:redis.daws84.cyou//:6379'
+Environment=MONGO_URL="mongodb://catalogue.daws84.cyou:27017/carts"
+// highlight-end
+ExecStart=/bin/node /app/server.js
+SyslogIdentifier=cart
+
+[Install]
+WantedBy=multi-cart.target
