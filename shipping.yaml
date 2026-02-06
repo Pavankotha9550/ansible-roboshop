@@ -8,7 +8,7 @@
         state: present
       
     - name: setting up roboshop user
-      ansibe.builtin.user:
+      ansible.builtin.user:
         name: roboshop
         shell: /sbin/nologin
         system: true
