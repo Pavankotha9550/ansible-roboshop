@@ -24,7 +24,7 @@
         state: absent
 
     - name: adding the html directory
-      anisble.builtin.file:
+      ansible.builtin.file:
         path: /usr/share/nginx/html
         state: directory
 
@@ -45,4 +45,11 @@
         state: absent
 
     - name: copying the nginx conf
-    
+      ansible.builtin.copy:
+        src: nginx.conf
+        dest: /etc/nginx/nginx.conf
+
+    - name: restarting the nginx
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
