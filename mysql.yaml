@@ -17,8 +17,7 @@
       vars:
         mysql_root_password: "RoboShop@1"
       tasks:
-      # 1. Update root password for all local root accounts
-      - name: Set MySQL root password
-        community.mysql.mysql_user:
-          name: root
-          password: "{{ mysql_root_password }}"
+        - name: Set MySQL root password
+          community.mysql.mysql_user:
+            name: root
+            password: "{{ mysql_root_password }}"
