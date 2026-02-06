@@ -1,0 +1,35 @@
+- name: configuration of shipping module
+  hosts: shipping
+  become: yes
+  tasks:
+    - name: installing maven
+      ansible.builtin.package:
+        name: maven
+        state: present
+      
+    - name: setting up roboshop user
+      ansibe.builtin.user:
+        name: roboshop
+        shell: /sbin/nologin
+        system: true
+        home: /app
+    
+    - name: creating app directory
+      ansible.builtin.file:
+        path: app
+        state: directory
+
+    - name: downloading the shipping code
+      ansible.builtin.get_url:
+        url: https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip 
+        path: /tmp/shipping.zip
+
+    - name: unzipping the shipping
+      ansible.builtin.unarchive:
+        src: /tmp/shipping.zip
+        dest: /app/
+        remote_src: yes
+      
+    
+
+
