@@ -16,9 +16,7 @@
     - name: settingup mysql password
       vars:
         mysql_root_password: "RoboShop@1"
-      tasks:
-        - name: Set MySQL root password
-          community.mysql.mysql_user:
+        community.mysql.mysql_user:
             name: root
             password: "{{ mysql_root_password }}"
             host_all: yes
