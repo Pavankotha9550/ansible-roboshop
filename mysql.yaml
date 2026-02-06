@@ -9,6 +9,6 @@
     
     - name: starting the service
       ansible.builtin.service:
-        name: mysql
+        name: mysql-server
         enabled: yes
         state: started
