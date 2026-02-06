@@ -13,6 +13,12 @@
         enabled: yes
         state: started
 
+    - name: Install MySQL Python dependencies on RHEL
+      ansible.builtin.dnf:
+        name: 
+          - python3-PyMySQL # Also recommended to install the mysql client for command-line checks
+        state: present
+
     - name: settingup mysql password
       vars:
         mysql_root_password: "RoboShop@1"
