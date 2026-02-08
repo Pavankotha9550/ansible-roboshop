@@ -53,7 +53,7 @@
 
     - name: copying the service file
       ansible.builtin.copy:
-        src: catalogue.service
+        src: shipping.service
         dest:  /etc/systemd/system/shipping.service
 
       
