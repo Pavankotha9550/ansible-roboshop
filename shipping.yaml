@@ -75,9 +75,9 @@
         state: import
         target: "{{item}}"
       loop:
-        -/app/db/schema.sql
-        -/appp/db/app-user.sql
-        -/app/db/master-data.sql
+        - /app/db/schema.sql
+        - /appp/db/app-user.sql
+        - /app/db/master-data.sql
 
     - name: restarting the service
       tags:
