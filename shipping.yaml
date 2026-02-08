@@ -7,8 +7,8 @@
         name: "{{item}}"
         state: present
       loop:
-        -maven
-        -mysql
+        - maven
+        - mysql
 
     - name: installing pyMysql and cryptography
       ansible.builtin.pip:
