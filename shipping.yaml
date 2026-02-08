@@ -2,10 +2,21 @@
   hosts: shipping
   become: yes
   tasks:
-    - name: installing maven
+    - name: installing maven and mysql
       ansible.builtin.package:
-        name: maven
+        name: "{{item}}"
         state: present
+      loop:
+        -maven
+        -mysql
+
+    - name: installing pyMysql and cryptography
+      ansible.builtn.pip:
+        name: "{{item}}"
+        executable: pip3.9
+      loop:
+        -cryptography
+        -pyMysql
       
     - name: setting up roboshop user
       ansible.builtin.user:
@@ -53,21 +64,24 @@
         state: started
         enabled: yes
 
-    - name: installing mysql
-      ansible.builtin.package:
-        name: mysql 
-        state: present
-
-    - name: loading the schema into mysql
-      ansible.builtin.shell: mysql -h mysql.daws84.cyou -uroot -pRoboShop@1 < /app/db/schema.sql
-
-    - name: creating app user with password  into mysql
-      ansible.builtin.shell: mysql -h mysql.daws84.cyou -uroot -pRoboShop@1 < /app/db/app-user.sql 
-    
-    - name: loading the cities data to mysql
-      ansible.builtin.shell: mysql -h mysql.daws84.cyou -uroot -pRoboShop@1 < /app/db/master-data.sql
+    - name: importing data into mysql
+      tags:
+        -import
+      community.mysql.mysql_db:
+        name: all
+        login_user: root
+        login_password: RoboShop@1
+        login_host: mysql.daws84.cyou
+        state: import
+        target: "{{item}}"
+      loop:
+        -/app/db/schema.sql
+        -/appp/db/app-user.sql
+        -/app/db/master-data.sql
 
     - name: restarting the service
+      tags:
+        - import
       ansible.builtin.systemd:
         name: shipping.service
         state: restarted
