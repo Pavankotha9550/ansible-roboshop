@@ -34,7 +34,36 @@
       ansible.builtin.command: mvn clean package
       args:
         chdir: /app
-      
-    
 
+    - name: renaming the jar file
+      ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
+      args:
+        chdir: /app
+      
+    - name: reloading the service
+      ansible.builtin.systemd:
+        name: shipping.service
+        daemon_reload: yes
+        state: started
+        enabled: yes
+
+    - name: installing mysql
+      ansible.builtin.package:
+        name: mysql 
+        state: present
+
+    - name: loading the schema into mysql
+      ansible.builtin.shell: mysql -h mysql.daws84.cyou -uroot -pRoboShop@1 < /app/db/schema.sql
+
+    - name: creating app user with password  into mysql
+      ansible.builtin.shell: mysql -h mysql.daws84.cyou -uroot -pRoboShop@1 < /app/db/app-user.sql 
+    
+    - name: loading the cities data to mysql
+      ansible.builtin.shell: mysql -h mysql.daws84.cyou -uroot -pRoboShop@1 < /app/db/master-data.sql
+
+    - name: restarting the service
+      ansible.builtin.systemd:
+        name: shipping.service
+        state: restarted
+        
 
