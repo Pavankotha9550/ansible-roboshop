@@ -39,6 +39,12 @@
       ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
       args:
         chdir: /app
+
+    - name: copying the service file
+      ansible.builtin.copy:
+        src: catalogue.service
+        dest:  /etc/systemd/system/shipping.service
+
       
     - name: reloading the service
       ansible.builtin.systemd:
@@ -65,5 +71,5 @@
       ansible.builtin.systemd:
         name: shipping.service
         state: restarted
-        
+
 
