@@ -15,8 +15,8 @@
         name: "{{item}}"
         executable: pip 3.9
       loop:
-        -cryptography
-        -pyMysql
+        - cryptography
+        - pyMysql
       
     - name: setting up roboshop user
       ansible.builtin.user:
