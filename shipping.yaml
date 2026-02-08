@@ -80,8 +80,6 @@
         - /app/db/master-data.sql
 
     - name: restarting the service
-      tags:
-        - import
       ansible.builtin.systemd:
         name: shipping.service
         state: restarted
